@@ -13,12 +13,13 @@ export class PessoasdetailsComponent {
   @Output() retorno = new EventEmitter<Pessoa>();
 
   pessoaService = inject(PessoaService);
-
+  modalService: any;
+  
+  isDeletar = false;
 
   constructor() {
-
   }
-
+/*
   salvar() {
     //ISSO AQUI SERVE PARA EDITAR OU ADICIONAR... TANTO FAZ
 
@@ -35,5 +36,27 @@ export class PessoasdetailsComponent {
 
 
   }
+  */
+  
+  openModal(modal: any) {
+    this.modalService.open(modal, { size: 'sm' });
+  }
+
+
+  save(pessoa: Pessoa) {
+  
+    this.pessoaService.save(pessoa).subscribe({
+      next: (novaPessoa) => {
+        console.log(novaPessoa);
+        this.retorno.emit(pessoa);
+        console.log('cadastrando')
+      },
+      error: (erro) => {
+        console.log(erro);
+      },
+    });
+  }
+
+
 
 }

@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, EventEmitter, Output, inject } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Pessoa } from 'src/app/models/pessoa';
 import { PessoaService } from 'src/app/services/pessoa.service';
@@ -11,18 +11,22 @@ import { PessoaService } from 'src/app/services/pessoa.service';
 export class PessoaslistComponent {
 
   lista: Pessoa[] = [];
+  pessoa!: Pessoa;
+  @Output() retorno = new EventEmitter<Pessoa>();
 
+
+  
   pessoaSelecionadaParaEdicao: Pessoa = new Pessoa();
   indiceSelecionadoParaEdicao!: number;
 
   modalService = inject(NgbModal);
   pessoaService = inject(PessoaService);
+  isDeletar = false;
 
   constructor() {
 
     this.listAll();
     //this.exemploErro();
-
   }
 
 
@@ -54,36 +58,34 @@ export class PessoaslistComponent {
 
   }
 
-
-  adicionar(modal: any) {
-    this.pessoaSelecionadaParaEdicao = new Pessoa();
-
+  openModal(modal: any) {
     this.modalService.open(modal, { size: 'sm' });
   }
+  
+  
 
   editar(modal: any, pessoa: Pessoa, indice: number) {
     this.pessoaSelecionadaParaEdicao = Object.assign({}, pessoa); //clonando o objeto se for edição... pra não mexer diretamente na referência da lista
     this.indiceSelecionadoParaEdicao = indice;
 
     this.modalService.open(modal, { size: 'sm' });
+    this.pessoaService.put(pessoa).subscribe({
+      next: (pessoaEditada) => {
+        console.log(pessoaEditada);
+      },
+      error: (erro) => {
+        console.log(erro);
+      }
+    })
   }
 
   addOuEditarPessoa(pessoa: Pessoa) {
-
     this.listAll();
-
-    /*
-
-    if (this.pessoaSelecionadaParaEdicao.id > 0) { //MODO EDITAR
-      this.lista[this.indiceSelecionadoParaEdicao] = pessoa;
-    } else {
-      pessoa.id = 99;
-      this.lista.push(pessoa);
-    }
-    */
-
     this.modalService.dismissAll();
-
+  }
+  deletar(pessoa: Pessoa){
+    this.lista = this.lista.filter(item => item.id !== pessoa.id);
+    this.pessoaService.delete(pessoa).subscribe();
   }
 
 }
