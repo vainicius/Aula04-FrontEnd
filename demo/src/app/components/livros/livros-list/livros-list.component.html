@@ -1,0 +1,49 @@
+
+<div class="container">
+    <h3 class="alert alert-warning">Listagem de livros!</h3>
+    <td> <button class="btn btn-primary" (click)="openModal(modal1)">Adicionar</button> </td>
+    <div class="row">
+        <div class="col-lg-12">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">#ID</th>
+                        <th scope="col">Nome</th>
+                        <th scope="col">Autor</th>
+                        <th scope="col">Genero</th>
+                        <th scope="col">Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let livro of lista; let i = index">
+                        <th scope="row">{{ livro.id }}</th>
+                        <td> {{ livro.nome }} </td>
+                        <td> {{ livro.autor }} </td>
+                        <td> {{ livro.genero }} </td>
+                        <td> <button class="btn btn-primary" (click)="editar(modal1, livro, i)">Editar</button> </td>
+                         <button class="btn btn-danger" (click)="deletar(livro)">Deletar</button> 
+
+                    </tr>
+                </tbody>
+            </table>
+
+
+        </div>
+    </div>
+</div>
+
+
+<ng-template #modal1 let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title">Modal title</h4>
+        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+       
+        <app-livros-details [livro]="livroSelecionadoParaEdicao" (retorno)="addOuEditarLivro($event)" ></app-livros-details>
+        
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
+    </div>
+</ng-template>

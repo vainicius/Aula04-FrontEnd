@@ -12,6 +12,10 @@ import { IndexComponent } from './components/layout/index/index.component';
 import { LoginComponent } from './components/sistema/login/login.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { HttpClientModule } from '@angular/common/http';
+import { LivrosListComponent } from './components/livros/livros-list/livros-list.component';
+import { LivrosDetailsComponent } from './components/livros/livros-details/livros-details.component';
+import { CarrosListComponent } from './components/carros/carros-list/carros-list.component';
+import { CarrosDetailComponent } from './components/carros/carros-detail/carros-detail.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +25,11 @@ import { HttpClientModule } from '@angular/common/http';
     HeaderComponent,
     FooterComponent,
     IndexComponent,
-    LoginComponent
+    LoginComponent,
+    LivrosListComponent,
+    LivrosDetailsComponent,
+    CarrosListComponent,
+    CarrosDetailComponent
   ],
   imports: [
     BrowserModule,

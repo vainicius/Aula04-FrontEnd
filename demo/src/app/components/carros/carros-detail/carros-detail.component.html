@@ -1,0 +1,19 @@
+<form>
+    <div class="mb-3">
+        <label for="exampleInputText1" class="form-label">Placa:</label>
+        <input type="text" class="form-control" name="exampleInputText1" aria-describedby="emailHelp"
+            [(ngModel)]="carro.placa">
+    </div>
+    <div class="mb-3">
+        <label for="exampleInputText1" class="form-label">Marca:</label>
+        <input type="text" class="form-control" name="exampleInputText1" [(ngModel)]="carro.marca">
+    </div>
+    <div class="mb-3">
+        <label for="exampleInputText1" class="form-label">Modelo:</label>
+        <input type="text" class="form-control" name="exampleInputText1" [(ngModel)]="carro.modelo">
+    </div>
+    <button type="submit"class="
+    btn btn-primary"  (click)="save(carro)">Salvar</button>
+
+
+</form>
